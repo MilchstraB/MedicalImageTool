@@ -1,4 +1,5 @@
 import os
+import os
 import numpy as np
 import torch
 from torch.utils.data import Dataset
@@ -70,9 +71,14 @@ class MedicalDataset(Dataset):
         # Assuming that the data is memorized as npy
         image = np.load(image_path)
         label = np.load(label_path)
+        label = label['arr_0']
 
         image = self.transforms(image)
         label = self.transforms(label)
+
+        image = torch.tensor(image, dtype=torch.float32)
+        image = torch.unsqueeze(image, dim=0)
+        label = torch.tensor(label)
 
         return image, label
 
