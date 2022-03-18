@@ -80,7 +80,6 @@ def train(model,
         writer = SummaryWriter(visual_data)
 
     avg_loss = 0.0
-    avg_loss_list = []
     mdice = 0.0
     channel_dice_array = np.array([])
     iters_per_epoch = len(train_dataloader)
@@ -104,7 +103,7 @@ def train(model,
             loss.backward()
             optimizer.step()
             # TODO: add lr_sche
-            avg_loss_list.append(loss.item())
+            avg_loss += loss.item()
             mdice += np.mean(per_channel_dice) * 100
 
             if channel_dice_array.size == 0:
@@ -126,7 +125,6 @@ def train(model,
                 writer.add_scalar('mDice/train', mdice, iter)
 
             avg_loss = 0.0
-            avg_loss_list = []
             mdice = 0.0
             channel_dice_array = np.array([])
 
