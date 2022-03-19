@@ -68,6 +68,7 @@ class DiceLoss(nn.Module):
         if len(logits.shape) == 4:
             logits = logits.unsqueeze(0)
 
+        labels = labels.type(torch.int64)
         labels_one_hot = F.one_hot(
             labels, num_classes=logits.shape[1])  # [B, D, H, W, C]
         labels_one_hot = torch.permute(labels_one_hot,
