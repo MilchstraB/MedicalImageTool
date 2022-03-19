@@ -94,7 +94,7 @@ def train(model,
             label = label.to(device)
             label = label.type(torch.int32)
             if hasattr(model, 'data_format') and model.data_format == 'NDHWC':
-                image = image.permute(0, 4, 1, 2, 3)
+                image = image.permute((0, 4, 1, 2, 3))
 
             logits = model(image)
             loss, per_channel_dice = losses(logits, label)
