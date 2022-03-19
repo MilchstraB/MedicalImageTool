@@ -55,9 +55,6 @@ class CrossEntropyLoss(nn.Module):
                 'The number of weights = {} must be the same as the number of classes = {}.'
                 .format(len(self.weight), logit.shape[channel_axis]))
 
-        if channel_axis == 1:
-            logit = torch.permute(logit, (0, 2, 3, 4, 1))  # NCDHW -> NDHWC
-
         loss = F.cross_entropy(logit + self.EPS,
                                label,
                                reduction='mean',
